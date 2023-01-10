@@ -3,9 +3,7 @@ from decimal import Decimal
 
 
 class Appointment:
-    def __init__(self) -> None:
-        pass
-
+    ''' Class for Creating and Deleting Appointments '''
     def create(self,
             CrmId:str,
             ParentCrmObjectId:str,
@@ -51,9 +49,52 @@ class Appointment:
                 }
         requests.post(url=self.url,data=data)
 
+
+class Person:
+    ''' Class for Creating and Deleting a Person '''
+    def create(self,
+            CrmObjectTypeCode:str,
+            FirstName:str,
+            LastName:str,
+            IdentityType:str,
+            Categories:dict,
+            PhoneContacts:dict,
+            Emails:dict,
+            Subject:str,
+            RefId:str,
+            Website:str,
+            NationalCode:str,
+            Balance:Decimal,
+            SourceType:str,
+            BirthDate:str,
+            Gender:str,
+            CustomerNumber:str,
+            CustomerDate:str,
+            OtherUserName:str,
+            SaleUsername:str,
+            SupportUsername:str,
+            ColorName:str,
+            AddressContacts:dict,
+            Degree:str,
+            CreditType:str
+            ):
+    
+        data = locals()
+        del data['self']
+        data['userName'] = self.username; data['password'] = self.password
+        requests.post(url=self.url,data=data)
+    
+    
+    def delete(self,PersonId:str):
+
+        data = {'appointmentId':PersonId,
+        'userName':self.username,
+        'password':self.password
+        }
+        requests.post(url=self.url,data=data)
+
 class Pypg(Appointment):
     def __init__(self,url:str,username:str,password:str) -> None:
         self.url = url
         self.username = username
         self.password = password
-

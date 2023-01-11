@@ -1,4 +1,5 @@
 import requests
+import json
 from decimal import Decimal
 
 
@@ -40,6 +41,7 @@ class Appointment:
         data = locals()
         del data['self']
         data['userName'] = self.username; data['password'] = self.password
+        data = json.dumps(data)
         requests.post(url=self.url,data=data)
 
     def delete(self,appointmentId:str):
@@ -47,6 +49,7 @@ class Appointment:
                 'userName':self.username,
                 'password':self.password
                 }
+        data = json.dumps(data)
         requests.post(url=self.url,data=data)
 
 
@@ -82,6 +85,7 @@ class Person:
         data = locals()
         del data['self']
         data['userName'] = self.username; data['password'] = self.password
+        data = json.dumps(data)
         requests.post(url=self.url,data=data)
     
     
@@ -91,6 +95,7 @@ class Person:
         'userName':self.username,
         'password':self.password
         }
+        data = json.dumps(data)
         requests.post(url=self.url,data=data)
 
 class Pypg(Appointment):

@@ -50,7 +50,7 @@ class Appointment:
                 'password':self.password
                 }
         data = json.dumps(data)
-        requests.post(url=self.url,data=data)
+        requests.delete(url=f'{self.url}/Services/API/IAppointment.svc',data=data)
 
 
 class Person:
@@ -86,27 +86,76 @@ class Person:
         del data['self']
         data['userName'] = self.username; data['password'] = self.password
         data = json.dumps(data)
-        requests.post(url=self.url,data=data)
+        requests.post(url=f'{self.url}/services/api/IPerson.svc',data=data)
     
     
     def delete(self,person_id:str):
-
         data = {'appointmentId':person_id,
         'userName':self.username,
         'password':self.password
         }
         data = json.dumps(data)
-        requests.post(url=f'{self.url}/services/api/IPerson.svc',data=data)
+        requests.delete(url=f'{self.url}/services/api/IPerson.svc',data=data)
 
 class Inventory:
-    def get_remaining_stock(self,product_code:str):
 
+    def get_remaining_stock(self,product_code:str):
         data = {'product_code':product_code,
         'userName':self.username,
         'password':self.password
         }
         data = json.dumps(data)
         requests.post(url=f'{self.url}/services/api/IInventory.svc',data=data)
+
+class Opportunity:
+    '''Class for Creating and Deleting Opportunities'''
+    def create(self,
+        opportunity_info:dict,
+        crm_id:str,
+        parent_crm_object_id:str,
+        crm_object_type_name:str,
+        crm_object_type_code:str,
+        extended_properties:dict,
+        create_date:str,
+        modify_date:str,
+        tags:list,
+        ref_id=str,
+        stage=str,
+        identity_id=str,
+        description=str,
+        sale_stage=str,
+        opportunity_type=str,
+        opportunity_source_type=str,
+        won_cause=str,
+        lost_cause=str,
+        closed_date_persian=str,
+        closed_date=str,
+        total_value=Decimal,
+        probability=Decimal,
+        total_discount=Decimal,
+        fail_date=str,
+        success_date=str,
+        process_state_index=int,
+        stage_id=str,
+        name=str,
+        value=str,
+        user_key=str
+        ):
+
+        data = locals()
+        del data['self']
+        data['userName'] = self.username; data['password'] = self.password
+        data = json.dumps(data)
+        requests.post(url=f'{self.url}/services/api/IOpportunity.svc',data=data)
+    
+    def delete(self,opportunity_id:str):
+        data = {'appointmentId':opportunity_id,
+        'userName':self.username,
+        'password':self.password
+            }
+        data = json.dumps(data)
+        requests.delete(url=f'{self.url}/Services/API/IAppointment.svc',data=data)
+
 
 class Pypg(Appointment):
     def __init__(self,url:str,username:str,password:str) -> None:

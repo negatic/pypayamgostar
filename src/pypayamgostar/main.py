@@ -42,7 +42,7 @@ class Appointment:
         del data['self']
         data['userName'] = self.username; data['password'] = self.password
         data = json.dumps(data)
-        requests.post(url=self.url,data=data)
+        requests.post(url=f'{self.url}/Services/API/IAppointment.svc',data=data)
 
     def delete(self,appointmentId:str):
         data = {'appointmentId':appointmentId,
@@ -89,14 +89,24 @@ class Person:
         requests.post(url=self.url,data=data)
     
     
-    def delete(self,PersonId:str):
+    def delete(self,person_id:str):
 
-        data = {'appointmentId':PersonId,
+        data = {'appointmentId':person_id,
         'userName':self.username,
         'password':self.password
         }
         data = json.dumps(data)
-        requests.post(url=self.url,data=data)
+        requests.post(url=f'{self.url}/services/api/IPerson.svc',data=data)
+
+class Inventory:
+    def get_remaining_stock(self,product_code:str):
+
+        data = {'product_code':product_code,
+        'userName':self.username,
+        'password':self.password
+        }
+        data = json.dumps(data)
+        requests.post(url=f'{self.url}/services/api/IInventory.svc',data=data)
 
 class Pypg(Appointment):
     def __init__(self,url:str,username:str,password:str) -> None:

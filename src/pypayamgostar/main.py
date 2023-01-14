@@ -2,6 +2,12 @@ import requests
 import json
 from decimal import Decimal
 
+class Pypg():
+    '''Main Class Responsible For Instantiating a Connection to The Webservice'''
+    def __init__(self,url:str,username:str,password:str) -> None:
+        self.url = url
+        self.username = username
+        self.password = password
 
 class Appointment:
     ''' Class for Creating and Deleting Appointments '''
@@ -157,9 +163,45 @@ class Opportunity:
         data = json.dumps(data)
         requests.delete(url=f'{self.url}/Services/API/IAppointment.svc',data=data)
 
+class Ticket:
+    def create(self,
+            ticketInfo:dict,
+            CrmId:str,
+            ParentCrmObjectId:str,
+            CrmObjectTypeCode:str,
+            ExtendedProperties:list,
+            CreateDate:str,
+            ModifyDate:str,
+            Tags:list,
+            RefId:str,
+            Stage:str,
+            IdentityId:str,
+            Description:str,
+            Subject:str,
+            Status:str,
+            EmailAddress:str,
+            AssignedTo:str,
+            ResponseStatus:str,
+            Impact:str,
+            Number:int,
+            Severity:str,
+            CrmObjectTypeId:str,
+            CrmObjectTypeIndex:int,
+            StageId:str,
+            Name:str,
+            Value:str,
+            UserKey:str):
 
-class Pypg(Appointment):
-    def __init__(self,url:str,username:str,password:str) -> None:
-        self.url = url
-        self.username = username
-        self.password = password
+        data = locals()
+        del data['self']
+        data['userName'] = self.username; data['password'] = self.password
+        data = json.dumps(data)
+        requests.post(url=f'{self.url}/services/api/iticket.svc',data=data)
+    
+    def delete(self,ticketId:str):
+        data = {'appointmentId':ticketId,
+        'userName':self.username,
+        'password':self.password
+            }
+        data = json.dumps(data)
+        requests.delete(url=f'{self.url}/Services/API/iticket.svc',data=data)

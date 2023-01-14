@@ -53,8 +53,7 @@ class Appointment:
     def delete(self,appointmentId:str):
         data = {'appointmentId':appointmentId,
                 'userName':self.username,
-                'password':self.password
-                }
+                'password':self.password}
         data = json.dumps(data)
         requests.delete(url=f'{self.url}/Services/API/IAppointment.svc',data=data)
 
@@ -98,8 +97,7 @@ class Person:
     def delete(self,person_id:str):
         data = {'appointmentId':person_id,
         'userName':self.username,
-        'password':self.password
-        }
+        'password':self.password}
         data = json.dumps(data)
         requests.delete(url=f'{self.url}/services/api/IPerson.svc',data=data)
 
@@ -158,8 +156,7 @@ class Opportunity:
     def delete(self,opportunity_id:str):
         data = {'appointmentId':opportunity_id,
         'userName':self.username,
-        'password':self.password
-            }
+        'password':self.password}
         data = json.dumps(data)
         requests.delete(url=f'{self.url}/Services/API/IAppointment.svc',data=data)
 
@@ -201,7 +198,6 @@ class Ticket:
     def delete(self,ticketId:str):
         data = {'appointmentId':ticketId,
         'userName':self.username,
-        'password':self.password
-            }
+        'password':self.password}
         data = json.dumps(data)
         requests.delete(url=f'{self.url}/Services/API/iticket.svc',data=data)
